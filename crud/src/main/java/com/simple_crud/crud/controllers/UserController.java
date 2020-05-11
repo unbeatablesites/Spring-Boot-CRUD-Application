@@ -1,5 +1,4 @@
-package com.simple_crud.crud.controller;
-
+package com.simple_crud.crud.controllers;
 
 import com.simple_crud.crud.entites.User;
 import com.simple_crud.crud.repo.UserRepository;
@@ -15,7 +14,6 @@ import javax.validation.Valid;
 
 @Controller
 public class UserController {
-
     private final UserRepository userRepository;
 
     @Autowired
@@ -41,7 +39,7 @@ public class UserController {
 
     @GetMapping("/edit/{id}")
     public String showUpdateForm(@PathVariable("id") long id, Model model) {
-        User user = (User) userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+        long user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
         model.addAttribute("user", user);
         return "update-user";
     }
@@ -60,7 +58,7 @@ public class UserController {
 
     @GetMapping("/delete/{id}")
     public String deleteUser(@PathVariable("id") long id, Model model) {
-        User user = (User) userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+        long user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
         userRepository.delete(user);
         model.addAttribute("users", userRepository.findAll());
         return "index";
